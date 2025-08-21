@@ -13,9 +13,12 @@
             id="search_field"
             class="form-control"
             placeholder="Enter Product Name ..."
+            [(ngModel)]="searchText"
+            (input)="clearSearch()"
+            (keydown.enter)="searchByEnterKey()"
           />
           <div class="input-group-append">
-            <button id="search_btn" class="btn">
+            <button (click)="search()" id="search_btn" class="btn">
               <i class="fa fa-search" aria-hidden="true"></i>
             </button>
           </div>
@@ -34,6 +37,7 @@
 
     <section id="products" class="container mt-5">
       <div class="row">
+        @if(products.length>0){
         <div *ngFor=" let product of products"class="col-sm-12 col-md-6 col-lg-3 my-3">
           <div class="card p-3 rounded">
             <img
@@ -55,6 +59,10 @@
             </div>
           </div>
         </div>
+      }
+      @else {
+        <h3>No products to display</h3>
+      }
 
 
       </div>

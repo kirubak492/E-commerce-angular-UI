@@ -1,14 +1,31 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { ApiService } from '../api.service';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-home',
-  imports: [CommonModule],
+  imports: [CommonModule,FormsModule],
   templateUrl: './home.component.html',
   styleUrl: './home.component.css'
 })
-export class HomeComponent {
-  products=[
+export class HomeComponent implements OnInit{
+
+  products:any=[];
+  searchText:string='';
+  productsTmp:any=[];
+
+  ngOnInit(): void {
+    this.apiService.getProducts().subscribe((data)=>{
+      this.products=data.products;
+      this.productsTmp=data.products;
+    })
+  }
+
+  constructor(private apiService:ApiService){
+
+  }
+  products1=[
     {
   "_id": {
     "$oid": "689a1483d6decfb210614d15"
@@ -54,8 +71,26 @@ export class HomeComponent {
 
 
   calculate(rating:String):number{
-    console.log((Number(rating)/5)*100);
+    // console.log((Number(rating)/5)*100);
     
     return (Number(rating)/5)*100;
   }
+
+  search(){
+    console.log(this.searchText);
+    this.apiService.searchProducts(this.searchText).subscribe((data)=>{
+      this.products=data.products
+    })
+  }
+
+  clearSearch(){
+    if(this.searchText==''){
+     this.products=this.productsTmp
+    }
+  }
+
+  searchByEnterKey() {
+  this.search()
+  }
+  
 }
