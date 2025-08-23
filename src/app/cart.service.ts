@@ -27,4 +27,9 @@ export class CartService {
    this.itemSource.next(this.cartItems)   
   }
 
+  updateItems(items:[]){
+    this.cartItems=items;
+    this.itemSource.next(this.cartItems);
+  }
+
 }
