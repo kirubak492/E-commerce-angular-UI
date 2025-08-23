@@ -21,13 +21,13 @@
 
                 <p id="product_price">${{product.price}}</p>
                 <div class="stockCounter d-inline">
-                    <span class="btn btn-danger minus">-</span>
+                    <span class="btn btn-danger minus" (click)="decreaseQty()">-</span>
 
-                    <input type="number" class="form-control count d-inline" value="1" readOnly />
+                    <input type="number" class="form-control count d-inline" value="1" [(ngModel)]='qty' readOnly />
 
-                    <span class="btn btn-primary plus">+</span>
+                    <span class="btn btn-primary plus" (click)="increaseQty()">+</span>
                 </div>
-                 <button type="button" id="cart_btn" class="btn btn-primary d-inline ml-4">Add to Cart</button>
+                 <button type="button" id="cart_btn" class="btn btn-primary d-inline ml-4" (click)="addToCart()">Add to Cart</button>
 
                 <hr>
 
