@@ -4,10 +4,12 @@ import { ApiService } from '../api.service';
 import { CommonModule } from '@angular/common';
 import { ActivatedRoute } from '@angular/router';
 import { CartService } from '../cart.service';
+import { ToastrModule, ToastrService } from 'ngx-toastr';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @Component({
   selector: 'app-product-detail',
-  imports: [FormsModule,CommonModule],
+  imports: [FormsModule,CommonModule,ToastrModule],
   templateUrl: './product-detail.component.html',
   styleUrl: './product-detail.component.css'
 })
@@ -18,7 +20,11 @@ product:any={}
 
 qty:number=1
 
-constructor(private route:ActivatedRoute, private apiService:ApiService, private cartService:CartService){}
+constructor(private route:ActivatedRoute, 
+  private apiService:ApiService,
+   private cartService:CartService,
+   private toastr:ToastrService
+  ){}
 ngOnInit(): void {
     this.route.params.subscribe((data)=>{
       console.log(data);
@@ -60,5 +66,8 @@ ngOnInit(): void {
     }
 
     this.cartService.addItem(newCartItem);
+    this.toastr.success('cart Item added' , 'MiniEcommerce',{
+      positionClass:"toast-top-center"
+    })
   }
 }
