@@ -64,6 +64,12 @@ ngOnInit(): void {
       product:this.product,
       qty:this.qty
     }
+    //condition to check out of stock to add cart
+    if(this.product.stock ==0 ){
+
+      this.toastr.error('cannot add items due to out of stock', 'MiniEcommerce')
+      return
+    }
 
     this.cartService.addItem(newCartItem);
     this.toastr.success('cart Item added' , 'MiniEcommerce',{
